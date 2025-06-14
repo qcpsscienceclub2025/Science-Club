@@ -33,7 +33,14 @@ function firstPageAnim() {
         duration: 1.5,
         delay: -1,
         ease: "expo.inOut"
-    });
+    })
+    .from(".right-col", {
+        y: -10,
+        opacity: 0,
+        duration: 1.5,
+        delay: -1,
+        ease: "expo.inOut"
+    })
 }
 
 // Mouse circle scale and movement
@@ -77,8 +84,99 @@ document.querySelectorAll(".elem").forEach(function (elem) {
 });
 
 
+// music 
+
+//  const mySong = document.getElementById("mysong");
+//   const icon = document.getElementById("icon");
+
+//   icon.addEventListener("click", function () {
+//     if (mySong.paused) {
+//       mySong.play();
+//     } else {
+//       mySong.pause(); // Optional: toggle pause/play
+//     }
+//   });
+
+
+// script.js
+window.onload = function () {
+  const mySong = document.getElementById("mysong");
+  const icon = document.getElementById("icon");
+
+  icon.addEventListener("click", function () {
+    if (mySong.paused) {
+      mySong.play();
+    } else {
+      mySong.pause();
+    }
+  });
+};
+
+
+// scroltrigger 
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        console.log(entry)
+        if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+        } else {
+            entry.target.classList.remove('show');
+        }
+    });
+});
+
+const hiddenElements = document.querySelectorAll('#second');
+hiddenElements.forEach((el) => observer.observe(el));
 
 
 
+// scroll trigger 
+
+ gsap.utils.toArray(".elem").forEach((elem) => {
+    gsap.from(elem, {
+      x: -100,           // from left
+      opacity: 0,
+      duration: 1.2,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: elem,
+        start: "top 80%",
+        toggleActions: "play reverse play reverse" // 🔁 Replay on scroll up/down
+      }
+    });
+  });
+
+
+
+ gsap.registerPlugin(ScrollTrigger);
+
+  // Animate Heading Text
+  gsap.from(".headings-container", {
+    y: -50,
+    opacity: 0,
+    duration: 1.2,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: ".headings-container",
+      start: "top 85%",
+      toggleActions: "play reverse play reverse" // 🔁 Repeats on scroll
+    }
+  });
+
+  // Animate Team Cards
+  gsap.from(".card-container", {
+    scale: 0.8,
+    y: 50,
+    opacity: 0,
+    duration: 1,
+    stagger: 0.2,
+    ease: "back.out(1.7)",
+    scrollTrigger: {
+      trigger: ".team-members-container",
+      start: "top 80%",
+      toggleActions: "play reverse play reverse" // 🔁 Repeats on scroll
+    }
+  });
 
 
